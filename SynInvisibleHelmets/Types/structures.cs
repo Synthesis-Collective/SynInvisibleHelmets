@@ -1,7 +1,7 @@
 namespace SynInvisibleHelmets.Types
 {
-    public struct Settings
+    public class Setting
     {
-        public int slotToUse;
+        public int slotToUse = 31;
     }
 }
