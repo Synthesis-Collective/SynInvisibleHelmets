@@ -4,6 +4,7 @@ using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using SynInvisibleHelmets.Types;
+using Noggog;
 
 namespace SynInvisibleHelmets
 {
@@ -22,7 +23,7 @@ namespace SynInvisibleHelmets
 
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
-            foreach (var armor in state.LoadOrder.PriorityOrder.Armor().WinningOverrides())
+            state.LoadOrder.PriorityOrder.Armor().WinningOverrides().ForEach(armor =>
             {
                 if (armor.BodyTemplate != null && armor.BodyTemplate.FirstPersonFlags.HasFlag(BipedObjectFlag.Hair))
                 {
@@ -34,7 +35,7 @@ namespace SynInvisibleHelmets
                         na.BodyTemplate.FirstPersonFlags |= (BipedObjectFlag)(1 << Config.slotToUse);
                     }
                 }
-            }
+            });
         }
     }
 }
