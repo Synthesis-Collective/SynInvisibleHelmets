@@ -25,7 +25,7 @@ namespace SynInvisibleHelmets
         {
             state.LoadOrder.PriorityOrder.Armor().WinningOverrides().ForEach(armor =>
             {
-                if (armor.BodyTemplate != null && armor.BodyTemplate.FirstPersonFlags.HasFlag(BipedObjectFlag.Hair) && !string.IsNullOrEmpty(armor.Name?.String ?? ""))
+                if (!string.IsNullOrEmpty(armor.Name?.String ?? "") && armor.BodyTemplate != null && armor.BodyTemplate.FirstPersonFlags.HasFlag(BipedObjectFlag.Hair))
                 {
                     var na = state.PatchMod.Armors.GetOrAddAsOverride(armor);
                     Console.WriteLine($"Patching {na.Name?.String}");
