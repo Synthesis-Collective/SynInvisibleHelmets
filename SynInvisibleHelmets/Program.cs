@@ -27,11 +27,12 @@ namespace SynInvisibleHelmets
 
         public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
-            state.LoadOrder.PriorityOrder.Armor().WinningOverrides().ForEach(armor =>
+            foreach (var armor in state.LoadOrder.PriorityOrder.Armor().WinningOverrides())
             {
                 if (
                     !string.IsNullOrEmpty(armor.Name?.String ?? "") &&
                     armor.BodyTemplate != null &&
+                    (!Config.IgnoreMods.Contains(armor.FormKey.ModKey) && !Config.IgnoreItems.Contains(armor.FormKey)) &&
                     (armor.HasKeyword(Skyrim.Keyword.ArmorHelmet) || armor.HasKeyword(Skyrim.Keyword.ClothingHead) ||
                     (armor.HasKeyword(Skyrim.Keyword.ArmorClothing) && armor.HasKeyword(Skyrim.Keyword.ClothingBody) && armor.BodyTemplate.FirstPersonFlags.HasFlag(BipedObjectFlag.Hair))) &&
                     !armor.HasKeyword(Skyrim.Keyword.ArmorJewelry)
@@ -48,7 +49,7 @@ namespace SynInvisibleHelmets
                         na.BodyTemplate.FirstPersonFlags |= (BipedObjectFlag)(1 << Config.slotToUse);
                     }
                 }
-            });
+            }
         }
     }
 }
